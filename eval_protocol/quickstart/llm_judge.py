@@ -16,7 +16,6 @@ from eval_protocol.quickstart.utils import (
     split_multi_turn_rows,
     JUDGE_CONFIGS,
     calculate_bootstrap_scores,
-    push_scores_to_langfuse,
     run_judgment_async,
 )
 import asyncio
@@ -131,6 +130,6 @@ async def test_llm_judge(rows: list[EvaluationRow]) -> list[EvaluationRow]:
             row.evaluation_result.score = mean_score
 
     # Optional, push scores back to Langfuse. Note that one score per model will be pushed back onto same trace.
-    push_scores_to_langfuse(rows, model_name, mean_score)
+    adapter.push_scores(rows, model_name, mean_score)
 
     return rows
